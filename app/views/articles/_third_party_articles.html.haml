@@ -1,0 +1,6 @@
+%h1 News from around the World
+
+%p=@all_articles
+-@all_articles.each do |article|
+    %p= link_to "#{article.title}", article.url
+    %p= article.name

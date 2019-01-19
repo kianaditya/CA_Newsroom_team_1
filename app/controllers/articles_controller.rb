@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
 
     newsapi = News.new(Rails.application.credentials.news_api[:secret_key])
 
-    @all_articles = newsapi.get_top_headlines(sources: "bbc-news")
+    @all_articles = newsapi.get_top_headlines(sources: "bbc-news,buzzfeed")
   end
 
   def show
