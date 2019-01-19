@@ -16,8 +16,8 @@
         enable_page_level_ads: true
       });
   %body
-    = link_to_unless_current  "English", locale: 'en' 
-    = link_to_unless_current  "Svenska", locale: 'sv' 
+    = link_to_unless_current  "English", locale: 'en' , locals: {source: 'en'}
+    = link_to_unless_current  "Svenska", locale: 'sv' , locals: {source: 'se'}
     = render partial: 'partials/navbar'
 
     = notice
