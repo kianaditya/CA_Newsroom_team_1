@@ -1,5 +1,5 @@
--if user_signed_in?
-  -if current_user.role == 'journalist'
+- if user_signed_in?
+  - if current_user.role == 'journalist'
     %p=link_to "My account", cms_articles_path 
 
 %h2=t('articles')
@@ -12,3 +12,5 @@
     =t('author')
     = article.user.first_name
   %p= article.created_at.strftime("%F")
+
+%p= @all_articles
