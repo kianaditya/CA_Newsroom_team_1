@@ -1,6 +1,15 @@
 %h1 News from around the World
 
-%p=@all_articles
--@all_articles.each do |article|
-    %p= link_to "#{article.title}", article.url
-    %p= article.name
+-# %p=@all_articles
+-# -@all_articles.each do |article|
+    -# %p= link_to "#{article.title}", article.url
+    -# %p= article.name
+
+-@sources.each do |source|
+    %h2=source
+    -@all_articles.each do |article|
+        -if source == article.id
+            %p= link_to "#{article.title}", article.url
+
+
+
