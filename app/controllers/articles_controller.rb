@@ -13,12 +13,16 @@ class ArticlesController < ApplicationController
   private
 
   def get_weather
-
     result = request.location
-    location = Geocoder.search(result.data['ip'])
-
-    response = JSON.parse(open('https://fcc-weather-api.glitch.me/api/current?lat=35&lon=139').read)
-
+    ip = result.data['ip']
+    location = Geocoder.search(ip)
+    lat = location.first.coordinates[0] || "59.35" 
+    lon = location.first.coordinates[1] || "18.05" 
+    url = "https://fcc-weather-api.glitch.me/api/current?lat=#{lat}&lon=#{lon}"
+    response = JSON.parse(open(url).read)
+    current_temp = response['main']['temp']
+    min_temp = response['main']['temp_min']
+    max_temp = response['main']['temp_max']
   end
 
 end
