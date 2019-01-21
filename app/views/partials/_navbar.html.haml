@@ -15,4 +15,8 @@
   %p= link_to "Sign up", new_user_registration_path
   %p= link_to "Log in", new_user_session_path
 
-  
+%p="Weather for: #{@city}"
+%p="Current Temperature: #{@current_temp}"
+%p="Min Temperature: #{@min_temp}"
+%p="Max Temperature: #{@max_temp}"
+%img(src="#{@icon}" alt="noimage")/
