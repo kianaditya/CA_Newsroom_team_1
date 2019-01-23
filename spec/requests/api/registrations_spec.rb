@@ -1,61 +1,85 @@
 require 'rails_helper'
 
 RSpec.describe 'User Registration', type: :request do
-  let(:headers) { { HTTP_ACCEPT: 'application/json' } }
+    let(:headers) { { HTTP_ACCEPT: 'application/json' } }
 
-  context 'with valid credentials' do
-    it 'returns a user and token' do
-      post '/api/auth', params: {email: 'me@mail.com',
-                                 password: 'whatever',
-                                 password_confirmation: 'whatever',
-                                 first_name: 'John',
-                                 last_name: 'Doe',
-                              }, headers: headers
+    context 'with valid credentials' do
 
-      expect(JSON.parse(response.body)['status']).to eq 'success'
-      expect(response.status).to eq 200
-    end
-  end
+        before do
+            post '/api/auth', params: {email: 'me@mail.com',
+                password: 'whatever',
+                password_confirmation: 'whatever',
+                first_name: 'John',
+                last_name: 'Doe',
+                }, headers: headers
+        end
 
-  context 'returns an error message when user submits' do
-    it 'non-matching password confirmation' do
-      post '/api/auth', params: {email: 'me@mail.com',
-                                 password: 'whatever',
-                                 password_confirmation: 'Whatever',
-                                 first_name: 'John',
-                                 last_name: 'Doe',
-                              }, headers: headers
+        it 'returns 200' do
+            expect(response).to have_http_status(200)
+        end
 
-      expect(JSON.parse(response.body)['errors']['password_confirmation']).to eq ["doesn't match Password"]
-      expect(response.status).to eq 422
+        it 'returns a user and token' do
+            expect(JSON.parse(response.body)['status']).to eq 'success'
+        end
     end
 
-    it 'an invalid email address' do
-      post '/api/auth', params: {email: 'me@mail',
-                                 password: 'whatever',
-                                 password_confirmation: 'whatever',
-                                 first_name: 'John',
-                                 last_name: 'Doe',
-                              }, headers: headers
+    context 'returns an error message when passwords mismatch' do
 
-      expect(JSON.parse(response.body)['errors']['email']).to eq ['is not an email']
-      expect(response.status).to eq 422
+        before do
+            post '/api/auth', params: {email: 'me@mail.com',
+                password: 'whatever',
+                password_confirmation: 'Whatever',
+                first_name: 'John',
+                last_name: 'Doe',
+            }, headers: headers
+        end
+
+        it 'returns 422' do
+            expect(response).to have_http_status(422)
+        end
+
+        it 'non-matching password confirmation' do
+            expect(JSON.parse(response.body)['errors']['password_confirmation']).to eq ["doesn't match Password"]
+        end
+    end 
+    context 'returns an error message when invalid email' do
+        before do
+            post '/api/auth', params: {email: 'me@mail',
+                password: 'whatever',
+                password_confirmation: 'whatever',
+                first_name: 'John',
+                last_name: 'Doe',
+                }, headers: headers
+        end
+
+        it 'returns 422' do
+            expect(response).to have_http_status(422)
+        end
+
+        it 'an invalid email address' do
+            expect(JSON.parse(response.body)['errors']['email']).to eq ['is not an email']
+        end
     end
+    context 'returns an error message when email already taken' do
+        before do
+            create(:user, email: 'me@mail.com',
+                password: 'whatever',
+                password_confirmation: 'whatever')
 
-    it 'an already registered email' do
-        create(:user, email: 'me@mail.com',
-                        password: 'whatever',
-                        password_confirmation: 'whatever')
+            post '/api/auth', params: {email: 'me@mail.com',
+                            password: 'whatever',
+                            password_confirmation: 'whatever',
+                            first_name: 'John',
+                            last_name: 'Doe',
+                        }, headers: headers
+        end
 
-      post '/api/auth', params: {email: 'me@mail.com',
-                                 password: 'whatever',
-                                 password_confirmation: 'whatever',
-                                 first_name: 'John',
-                                 last_name: 'Doe',
-                              }, headers: headers
+        it 'returns 422' do
+            expect(response).to have_http_status(422)
+        end
 
-      expect(JSON.parse(response.body)['errors']['email']).to eq ['has already been taken']
-      expect(response.status).to eq 422
+        it 'an already registered email' do
+            expect(JSON.parse(response.body)['errors']['email']).to eq ['has already been taken']
+        end
     end
-  end
 end
