@@ -16,7 +16,11 @@ World(FactoryBot::Syntax::Methods)
 
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+WebMock.allow_net_connect!
 Chromedriver.set_version '2.42'
+WebMock.disable_net_connect!(allow_localhost: true)
+
+
 
 chrome_options = %w[no-sandbox disable-popup-blocking disable-infobars]
 
@@ -33,6 +37,8 @@ Capybara.register_driver :selenium do |app|
     options: options
   )
 end
+
+
 
 Capybara.javascript_driver = :selenium
 
