@@ -26,8 +26,9 @@
 
 
 
-%p="Weather for: #{@city}"
-%p="Current Temperature: #{@current_temp}"
-%p="Min Temperature: #{@min_temp}"
-%p="Max Temperature: #{@max_temp}"
-%img(src="#{@icon}" alt="noimage")/ 
+%p="Weather for: #{@current_weather[:city]}"
+%p="Current Temperature: #{@current_weather[:temp]}"
+%p="Min Temperature: #{@current_weather[:min_temp]}"
+%p="Max Temperature: #{@current_weather[:max_temp]}"
+- unless @current_weather[:icon].empty?
+  %img(src="#{@current_weather[:icon]}" alt="noimage")/ 

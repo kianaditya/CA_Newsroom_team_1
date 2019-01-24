@@ -21,6 +21,7 @@ gem 'rails-i18n'
 gem 'stripe-rails'
 gem 'aws-sdk-s3'
 gem 'geocoder'
+gem 'rest-client'
 
 group :development, :test do
   gem 'factory_bot_rails'
