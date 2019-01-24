@@ -54,3 +54,9 @@ Article.create(title:'
 Article.create(title:'Stuff', lede: 'Stuff', body: "Stuff", user_id:journalist.id, category: finance, published: true)
 Article.create(title:'Stuff', lede: 'Stuff', body: "Stuff", user_id:journalist.id, category: finance, published: true)
 Article.create(title:'Stuff', lede: 'Stuff', body: "Stuff", user_id:journalist.id, category: finance, published: true)
+
+articles = Article.all
+
+articles.each do |article|
+    article.image.attach(io: File.open('app/assets/images/article.jpg'), filename: 'article.jpg')
+end

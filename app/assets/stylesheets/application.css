@@ -25,7 +25,7 @@
 
 .mainpage {
     display: grid;
-    grid-template-columns: 40% 30% 30%
+    grid-template-columns: 45% 25% 30%
 }
 
 .indexarticle {
