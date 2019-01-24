@@ -19,7 +19,7 @@ RSpec.describe 'User Registration', type: :request do
         end
 
         it 'returns a user and token' do
-            expect(JSON.parse(response.body)['status']).to eq 'success'
+            expect(json_response(response.body)['status']).to eq 'success'
         end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe 'User Registration', type: :request do
         end
 
         it 'non-matching password confirmation' do
-            expect(JSON.parse(response.body)['errors']['password_confirmation']).to eq ["doesn't match Password"]
+            expect(json_response(response.body)['errors']['password_confirmation']).to eq ["doesn't match Password"]
         end
     end 
     context 'returns an error message when invalid email' do
@@ -57,7 +57,7 @@ RSpec.describe 'User Registration', type: :request do
         end
 
         it 'an invalid email address' do
-            expect(JSON.parse(response.body)['errors']['email']).to eq ['is not an email']
+            expect(json_response(response.body)['errors']['email']).to eq ['is not an email']
         end
     end
     context 'returns an error message when email already taken' do
@@ -79,7 +79,7 @@ RSpec.describe 'User Registration', type: :request do
         end
 
         it 'an already registered email' do
-            expect(JSON.parse(response.body)['errors']['email']).to eq ['has already been taken']
+            expect(json_response(response.body)['errors']['email']).to eq ['has already been taken']
         end
     end
 end
