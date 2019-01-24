@@ -1,42 +1,68 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :request do
-  let(:user) { create(:user) }
-  let(:headers) { { HTTP_ACCEPT: 'application/json' } }
+    let(:user) { create(:user) }
+    let(:headers) { { HTTP_ACCEPT: 'application/json' } }
 
-  describe 'POST /api/auth/sign_in' do
-    it 'valid credentials returns user' do
-      post '/api/auth/sign_in', params: {email: user.email,
-                                          password: user.password
-                                      }, headers: headers
-      expected_response = {'data' => {'id' => user.id,
-                                      'first_name' => user.first_name,
-                                      'last_name' => user.last_name,
-                                      'role' => user.role,
-                                      'uid' => user.email,
-                                      'email' => user.email,
-                                      'provider' => 'email'}    
-                                      }
+    context 'Sign in with valid credentials' do
 
-      expect(JSON.parse(response.body)).to eq expected_response
+        before do
+            post '/api/auth/sign_in', params: {email: user.email,
+                password: user.password
+            }, headers: headers
+        end
+
+        it 'returns 200' do
+            expect(response).to have_http_status(200)
+        end
+
+        it 'valid credentials returns user' do
+        expected_response = {'data' => {'id' => user.id,
+                                        'first_name' => user.first_name,
+                                        'last_name' => user.last_name,
+                                        'role' => user.role,
+                                        'uid' => user.email,
+                                        'email' => user.email,
+                                        'provider' => 'email'}    
+                                        }
+
+        expect(JSON.parse(response.body)).to eq expected_response
+        end
     end
 
-    it 'invalid password returns error message' do
-      post '/api/auth/sign_in', params: {email: user.email, 
-                                          password: 'wrong_password'
-                                      }, headers: headers
+    context 'POST /api/auth/sign_in' do
 
-      expect(JSON.parse(response.body)['errors']).to eq ['Invalid login credentials. Please try again.']
-      expect(response.status).to eq 401
+        before do
+            post '/api/auth/sign_in', params: {email: user.email, 
+                password: 'wrong_password'
+            }, headers: headers
+        end
+
+        it 'returns 401' do
+            expect(response).to have_http_status(401)
+        end
+
+        it 'invalid password returns error message' do
+            expect(JSON.parse(response.body)['errors']).to eq ['Invalid login credentials. Please try again.']
+            expect(response.status).to eq 401
+        end
     end
+    
+    context 'POST /api/auth/sign_in' do
 
-    it 'invalid email returns error message' do
-      post '/api/auth/sign_in', params: {email: 'wrong@email.com',
-                                          password: user.password
-                                      }, headers: headers
+        before do
+            post '/api/auth/sign_in', params: {email: 'wrong@email.com',
+                password: user.password
+            }, headers: headers
+        end
 
-      expect(JSON.parse(response.body)['errors']).to eq ['Invalid login credentials. Please try again.']
-      expect(response.status).to eq 401
+        it 'returns 401' do
+            expect(response).to have_http_status(401)
+        end
+
+        it 'invalid email returns error message' do
+        expect(JSON.parse(response.body)['errors']).to eq ['Invalid login credentials. Please try again.']
+        expect(response.status).to eq 401
+        end
     end
-  end
 end
