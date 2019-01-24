@@ -24,11 +24,9 @@ Feature: List articles on the index page
     And I should see "Hanna"
     And I should see "hello this is about me"
     And I should see "Sports"
-    And I should see "Articles"
     And I should see "Author"
     And I click "Svenska"
-    Then I should see "Artiklar"
-    And I should see "Författare"
+    Then I should see "Författare"
 
   Scenario: User can see category bar
     When I visit the site
