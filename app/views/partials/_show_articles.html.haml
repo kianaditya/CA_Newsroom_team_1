@@ -1,31 +1,36 @@
 .mainpage
   .indexarticle.flex.flex-col.m-4
-    %p= image_tag @index_article.image , {class: "h-64"}
-    %h3= link_to "#{@index_article.title}", @index_article
-    %p= @index_article.category.name
+    -if @index_article.image.attached?
+      %p.pb-4= image_tag @index_article.image, {class: "w-full"}
+    %h3.text-4xl.pb-4= link_to "#{@index_article.title}", @index_article , {class: 'titel'}
+    .flex.justify-between
+      %p.text-grey.pb-4= @index_article.category.name
+      %p.text-grey.pb-4 
+        =t('author')
+        = @index_article.user.first_name
+      %p.text-grey.pb-4= @index_article.created_at.strftime("%F")
     %p= @index_article.lede
-    %p 
-      =t('author')
-      = @index_article.user.first_name
-    %p= @index_article.created_at.strftime("%F")
-
-  .secondaryarticles.flex.flex-col
+    
+  .secondaryarticles.flex.flex-col.m-4
     - @secondary_articles.each do |article|
-      .flex-col.text-lg.text-center
-        %h3= link_to "#{article.title}", article
-        %p= article.category.name
-        %p= image_tag article.image if article.image.attached?  
-        %p= article.lede
-        %p 
-          =t('author')
-          = article.user.first_name
-        %p= article.created_at.strftime("%F")
+      .flex-col
+        -if article.image.attached?
+          %p= image_tag article.image, {class: "w-full"}  
+        %h3.text-2xl.pb-4= link_to "#{article.title}", article , {class: 'titel'}
+        .flex.justify-between
+          %p.text-grey.pb-4= article.category.name
+          %p.text-grey.pb-4 
+            =t('author')
+            = article.user.first_name
+          %p.text-grey.pb-4= @index_article.created_at.strftime("%F")
+        %p.mb-8= article.lede
+      
     
     .otherartes.flex.flex-col
       - @articles.each do |article|
         .flex-col.text-sm.text-center
-          %h3= link_to "#{article.title}", article
-          %p= article.category.name
+          %h3.text-lg= link_to "#{article.title}", article , {class: 'titel'}
+          %p.text-grey.pb-4= article.category.name
 
   .externalarticles.h-screen.bg-grey-lightest.border-2
     %h1 EXTERNAL SOURCES

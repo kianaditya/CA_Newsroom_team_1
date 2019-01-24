@@ -49,5 +49,17 @@
     grid-column-end: 4;
 }
 
+.titel {
+    text-decoration: none;
+    color: black;
+    font-size: 120%;
+    letter-spacing: 2px;
+}
+
+.titel:hover {
+    color: red;
+
+}
+
 
 
