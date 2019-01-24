@@ -25,6 +25,16 @@ module Craftynews
       generate.controller_specs false
       generate.system_tests false
     end
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', 
+          headers: :any, 
+          methods: %i[get post put delete],
+          expose: %w(access-token expiry token-type uid client),
+          max_age: 0
+      end
+    end
     config.i18n.available_locales = [:sv, :en]
     config.i18n.default_locale = :en
     config.stripe.publishable_key = 'pk_test_QicERB8w3kyqaYW3hUUQylRH'
