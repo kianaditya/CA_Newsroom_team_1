@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'coveralls'
 Coveralls.wear_merged!('rails')
 require 'cucumber/rails'
@@ -7,10 +9,13 @@ ActionController::Base.allow_rescue = false
 begin
   DatabaseCleaner.strategy = :transaction
 rescue NameError
-  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+  raise 'You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it.'
 end
 
 World(FactoryBot::Syntax::Methods)
+FactoryBot::SyntaxRunner.class_eval do
+  include ActionDispatch::TestProcess
+end
 
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
@@ -22,7 +27,7 @@ chrome_options << 'auto-open-devtools-for-tabs'
 
 Capybara.register_driver :selenium do |app|
   options = Selenium::WebDriver::Chrome::Options.new(
-    args: %w( headless disable-popup-blocking disable-infobars)
+    args: %w[headless disable-popup-blocking disable-infobars]
   )
 
   Capybara::Selenium::Driver.new(
@@ -39,6 +44,10 @@ Before '@stripe' do
   StripeMock.start
 end
 
-After '@stripe' do 
+After '@stripe' do
   StripeMock.stop
+end
+
+After '@javascript' do 
+  # FileUtils.rm_rf("#{Rails.root}/tmp/storage")
 end

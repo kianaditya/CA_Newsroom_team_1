@@ -2,6 +2,14 @@ Then("I should see {string}") do |content|
   expect(page).to have_content content
 end
 
+Then("I should see {string} for the article {string}") do |content, article_title|
+  article = Article.find_by_title(article_title)
+  within("#article_#{article.id}") do
+    expect(page).to have_content content
+  end
+end
+
+
 Then("I should see Navbar") do
   expect(page).to have_css '.navbar'
 end

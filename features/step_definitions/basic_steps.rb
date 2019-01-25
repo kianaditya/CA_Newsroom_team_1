@@ -12,6 +12,13 @@ Given("I am logged in as {string}") do |email|
   visit root_path
 end
 
+Given("I a log in as {string}") do |email|
+  click_on 'Log in'
+  fill_in 'Email', with: email
+  fill_in 'Password', with: 'password'
+  click_on 'Submit'
+end
+
 When("I fill in {string} with {string}") do |element, value|
   fill_in element, with: value
 end
@@ -23,6 +30,7 @@ end
 When("I click to accept the alert message") do
   alert = page.driver.browser.switch_to.alert
   alert.accept
+  sleep 2
 end
 
 When("I select {string} from {string}") do |option, selection|
@@ -60,4 +68,20 @@ When("I click {string} for {string}") do |button, article|
   within(dom_section) do 
       click_on button
   end
+end
+
+Then("stop") do
+  binding.pry
+end
+
+Then("I click the icon for {string}") do |language|
+  case language
+  when "Swedish"
+    alt_tag = "sv"
+  when "English"
+    alt_tag = "en"
+  end
+  icon = find("img[ alt = '#{alt_tag}']")
+  icon.click
+  sleep 1
 end

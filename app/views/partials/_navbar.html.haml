@@ -3,7 +3,8 @@
     = link_to image_tag("logo.png", id: "logo"), root_path
   .w-full.block.flex-grow.lg:flex.lg:items-center.lg:w-auto
     .text-sm.lg:flex-grow
-
+      = link_to_unless_current image_tag("us.png", class: "h-8 w-12", alt: "en"), locale: "en"
+      = link_to_unless_current image_tag("se.png", class: "h-8 w-12", alt: "sv"), locale: "sv" 
     - if user_signed_in?
       %p.block.mt-4.lg:inline-block.lg:mt-0.text-white.mr-4.text-lg= "Hello, #{current_user.first_name}!"
       - if current_user.admin?

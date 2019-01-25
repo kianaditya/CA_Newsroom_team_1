@@ -1,3 +1,5 @@
+@javascript
+
 Feature: Edit/delete articles
   As a Journalist,
   In order to change articles I have already written
@@ -20,7 +22,6 @@ Feature: Edit/delete articles
 
     And I am logged in as "hanna@tuna.se"
     And I click "My account"
-    Then I should see "A breaking news item"
 
   Scenario: Successfully edit an article
     When I click "Edit"
@@ -29,11 +30,10 @@ Feature: Edit/delete articles
     And I fill in "Body" with "Excited about learning a new framework"
     And I select "Politics" from "Category"
     And I click "Update Article"
+    And I wait 2 seconds
     Then I should be on journalist index page
     And I should see "Learning Rails 5"
-    And I should see "This is the lede paragraph"
 
-  @javascript
   Scenario: Successfully delete an article
     When I click "Delete"
     And I click to accept the alert message
