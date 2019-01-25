@@ -1,4 +1,4 @@
-When("I visit the site") do
+When("I (re)visit the site") do
     visit root_path
 end
 
@@ -62,4 +62,9 @@ When("I click {string} for {string}") do |button, article|
   within(dom_section) do 
       click_on button
   end
+end
+
+
+Given("the time is {string}") do |time|
+  Timecop.freeze(Time.parse(time))
 end

@@ -37,6 +37,8 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'stripe-ruby-mock', '~> 2.5.4', require: 'stripe_mock'
   gem 'webmock'
+  gem 'timecop'
+  gem "show_me_the_cookies"
 end
 
 group :development do

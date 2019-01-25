@@ -13,6 +13,7 @@ rescue NameError
 end
 
 World(FactoryBot::Syntax::Methods)
+World(ShowMeTheCookies)
 
 Cucumber::Rails::Database.javascript_strategy = :truncation
 

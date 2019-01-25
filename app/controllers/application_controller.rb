@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
   before_action :get_categories
   before_action :get_weather
 
-
   def get_categories
     @categories = Category.all
   end
 
   def configure_permitted_parameters
-    attributes = [:first_name, :last_name]
+    attributes = %i[first_name last_name]
     devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
   end
 end
@@ -22,5 +23,13 @@ end
 private
 
 def get_weather
-  @current_weather = WeatherService.get_weather(request)
+  if cookies[:weather].present?
+    @current_weather = JSON.parse(cookies[:weather]).symbolize_keys
+  else
+    @current_weather = WeatherService.get_weather(request)
+    cookies[:weather] = {
+      value: JSON.generate(@current_weather),
+      expires: 15.minutes.from_now
+    }
+  end
 end
