@@ -3,4 +3,5 @@
     %h2=source.capitalize
     -@all_articles.each do |article|
         -if source == article.id
+            -# %img.w-32(src="#{article.urlToImage}" alt="")/
             %p= link_to "#{article.title}", article.url, target: '_blank'

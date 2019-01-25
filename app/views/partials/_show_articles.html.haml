@@ -34,5 +34,5 @@
           %h3.text-lg= link_to "#{article.title}", article , {class: 'titel'}
           %p.text-grey.pb-4= article.category.name
 
-    .externalarticles.h-screen.bg-grey-lightest.border-2
-      %h1 EXTERNAL SOURCES
+    .externalarticles
+      = render partial: 'third_party_articles'

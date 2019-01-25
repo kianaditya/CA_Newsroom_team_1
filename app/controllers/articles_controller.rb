@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
   def get_and_set_sources
     sourcesArray = []
     returnArray = []
-    source = params[:locals].present? ? params[:locals][:source] : 'en'
+    source = params[:locale].present? ? params[:locale] : 'en'
     sources = @newsapi.get_sources(language: source)
     sources.each do |source|
       sourcesArray.push(source.id)
