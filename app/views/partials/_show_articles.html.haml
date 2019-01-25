@@ -2,7 +2,7 @@
   .mainpage
     .indexarticle.flex.flex-col.m-4
       -if @index_article.image.attached?
-        %p.pb-4= image_tag @index_article.image, {class: "w-full"}
+        %p.pb-4= link_to image_tag(@index_article.image), @index_article, {class: "w-full"}
       %h3.text-4xl.pb-4= link_to "#{@index_article.title}", @index_article , {class: 'titel'}
       .flex.justify-between
         %p.text-grey.pb-4= @index_article.category.name
@@ -17,7 +17,7 @@
         - @secondary_articles.each do |article|
           .flex-col
             -if article.image.attached?
-              %p= image_tag article.image, {class: "w-full"}  
+              %p= link_to image_tag(article.image), article, {class: "w-full"}  
             %h3.text-2xl.pb-4= link_to "#{article.title}", article , {class: 'titel'}
             .flex.justify-between
               %p.text-grey.pb-4= article.category.name
@@ -32,7 +32,7 @@
         - @articles.each do |article|
           .flex-col.text-sm.text-center.w-64.m-4
             -if article.image.attached?
-              %p= image_tag article.image, {class: "w-64"} 
+              %p= link_to image_tag(article.image), article, {class: "w-64"}  
             %h3.text-lg= link_to "#{article.title}", article , {class: 'titel'}
             %p.text-grey.pb-4= article.category.name
 
