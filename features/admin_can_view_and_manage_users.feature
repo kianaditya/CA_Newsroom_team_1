@@ -1,3 +1,4 @@
+@javascript
 Feature: Admin can assign roles to users
 
     As an Admin
@@ -10,8 +11,8 @@ Feature: Admin can assign roles to users
             | first_name | last_name    | email          | password | role   |
             | Hanna      | Nyman        | hanna@tuna.se  | password | admin  |
             | William    | Schneiderman | will@gmail.com | password | member |
-        And I am logged in as "hanna@tuna.se"
-        And I click "Users"
+        And I visit the site
+        And I a log in as "hanna@tuna.se"
 
     Scenario: Admin can see all users
         Then I should see "William Schneiderman"

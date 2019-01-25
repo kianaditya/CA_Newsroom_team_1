@@ -12,6 +12,13 @@ Given("I am logged in as {string}") do |email|
   visit root_path
 end
 
+Given("I a log in as {string}") do |email|
+  click_on 'Log in'
+  fill_in 'Email', with: email
+  fill_in 'Password', with: 'password'
+  click_on 'Submit'
+end
+
 When("I fill in {string} with {string}") do |element, value|
   fill_in element, with: value
 end
@@ -60,4 +67,8 @@ When("I click {string} for {string}") do |button, article|
   within(dom_section) do 
       click_on button
   end
+end
+
+Then("stop") do
+  binding.pry
 end

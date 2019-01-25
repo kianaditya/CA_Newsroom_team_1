@@ -1,4 +1,4 @@
--if @articles
+-if @articles.any?
   .mainpage
     .indexarticle.flex.flex-col.m-4
       -if @articles.first.image.attached?
