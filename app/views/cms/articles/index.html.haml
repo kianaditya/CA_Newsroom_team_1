@@ -1,28 +1,27 @@
 %h1 List of articles
-%table
-  %tr
-    %th{align: "left"} Title
-    %th{align: "left"} Content
-    %th{align: "left"} Category
-    %th{align: "left"} Author
-    %th{align: "left"} Status
+%table.m-4.border-2
+  %tr.border-2.bg-red.text-white
+    %th.w-32{align: "left"} Title
+    %th.w-32{align: "left"} Category
+    %th.w-32{align: "left"} Author
+    %th.w-32{align: "left"} Status
     %th{align: "center"} Actions
   - @articles.each do |article|
     -if article.user == current_user || "editor"
       %tr{id: dom_id(article)}
         %td= article.title
-        %td= article.lede
         %td= article.category.name
         %td= article.user.first_name
         -if article.published?
           %td Published
         -else
           %td Not Published
-        %td
-          %span= link_to 'Show', article_path(article)
-          %span= link_to 'Edit', edit_cms_article_path(article)
-          %span= link_to 'Delete', cms_article_path(article),  |
-                method: :delete,                               |
-                data: { confirm: 'Are you super-duper sure?' } |
+        %td.flex.justify-between.h-32.items-center
+          %span
+            = link_to "Show", article_path(article)
+          %span
+            = link_to "Edit", edit_cms_article_path(article)
+          %span
+            = link_to "Delete", cms_article_path(article), method: :delete, data: { confirm: "Are you sure?" } |
 -if current_user.admin?
   = render partial: "admin_page", locals: { users: @users }

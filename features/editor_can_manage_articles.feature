@@ -22,9 +22,7 @@ Feature: Editor can manage articles
 
     Scenario: Editor can see all articles
         Then I should see "A breaking news item"
-        And I should see "Lede1"
         And I should see "Learn Rails 5"
-        And I should see "Lede2"
 
     Scenario: Editor can edit an article
         When I click "Edit" for "A breaking news item"
@@ -33,7 +31,6 @@ Feature: Editor can manage articles
         And I select "Politics" from "Category"
         And I click "Update Article"
         Then I should see "Greg is coding god!"
-        And I should see "This is the lede paragraph"
         And I should see "Politics"
 
     @javascript

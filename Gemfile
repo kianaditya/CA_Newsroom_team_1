@@ -22,6 +22,10 @@ gem 'stripe-rails'
 gem 'aws-sdk-s3'
 gem 'geocoder'
 gem 'rest-client'
+gem 'active_model_serializers'
+gem 'rack-cors', require: 'rack/cors'
+gem 'devise_token_auth'
+
 
 group :development, :test do
   gem 'factory_bot_rails'
