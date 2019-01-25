@@ -68,3 +68,7 @@ end
 Given("the time is {string}") do |time|
   Timecop.freeze(Time.parse(time))
 end
+
+Then("stop") do
+  binding.pry
+end
