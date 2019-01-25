@@ -21,6 +21,10 @@ gem 'rails-i18n'
 gem 'stripe-rails'
 gem 'aws-sdk-s3'
 gem 'news-api'
+gem 'active_model_serializers'
+gem 'rack-cors', require: 'rack/cors'
+gem 'devise_token_auth'
+
 
 group :development, :test do
   gem 'factory_bot_rails'

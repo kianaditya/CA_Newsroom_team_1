@@ -13,3 +13,71 @@
  *= require_tree .
  *= require_self
  */
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+#logo {
+    height: 80px;
+}
+
+* { font-family: Montserrat }
+
+.mainpage {
+    display: grid;
+    grid-template-columns: 45% 25% 30%;
+    grid-template-rows: 1 1;
+}
+
+.indexarticle {
+    grid-column: 1/2;
+}
+
+.secondaryarticles {
+    grid-column: 2/3;
+}
+
+.otherarticles {
+    grid-column: 1/4;
+    grid-row: 2/3;
+
+}
+
+.externalarticles {
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+
+.titel {
+    text-decoration: none;
+    color: black;
+    font-size: 120%;
+    letter-spacing: 2px;
+}
+
+.titel:hover {
+    color: red;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+
+.box-one {
+    grid-column: 1/2;
+}
+
+.box-two {
+    grid-column: 3/4;
+}
+
+.show {
+    grid-column-start: 2/3;
+}
+
+.back {
+    font-size: 25px;
+    padding-bottom: 20px;
+    text-decoration: none;
+}
+

@@ -1,0 +1,38 @@
+-if @articles.any?
+  .mainpage
+    .indexarticle.flex.flex-col.m-4{id: dom_id(@articles.first)}
+      -if @articles.first.image.attached?
+        %p.pb-4= link_to image_tag(@articles.first.image), @articles.first, {class: "w-full"}
+      %h3.text-4xl.pb-4= link_to "#{@articles.first.title}", @articles.first , {class: 'titel'}
+      .flex.justify-between
+        %p.text-grey.pb-4= @articles.first.category.name
+        %p.text-grey.pb-4 
+          =t('author')
+          = @articles.first.user.first_name
+        %p.text-grey.pb-4= @articles.first.created_at.strftime("%F")
+      %p= @articles.first.lede
+      
+    .secondaryarticles.flex.flex-col.m-4
+      - @articles[1..2].each do |article|
+        .flex-col{id: dom_id(article)}
+          -if article.image.attached?
+            %p= link_to image_tag(article.image), article, {class: "w-full"}  
+          %h3.text-2xl.pb-4= link_to "#{article.title}", article , {class: 'titel'}
+          .flex.justify-between
+            %p.text-grey.pb-4= article.category.name
+            %p.text-grey.pb-4 
+              =t('author')
+              = article.user.first_name
+            %p.text-grey.pb-4= article.created_at.strftime("%F")
+          %p.mb-8= article.lede
+      
+    .otherarticles.flex.flex-wrap
+      - @articles.offset(3).each do |article|
+        .flex-col.text-sm.text-center.w-64.m-4{id: dom_id(article)}
+          -if article.image.attached?
+            %p= link_to image_tag(article.image), article, {class: "w-64"}  
+          %h3.text-lg= link_to "#{article.title}", article , {class: 'titel'}
+          %p.text-grey.pb-4= article.category.name
+
+    .externalarticles.h-screen.bg-grey-lightest.border-2
+      %h1 EXTERNAL SOURCES
