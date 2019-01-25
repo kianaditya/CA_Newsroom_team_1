@@ -31,7 +31,6 @@ Feature: Edit/delete articles
     And I click "Update Article"
     Then I should be on journalist index page
     And I should see "Learning Rails 5"
-    And I should see "This is the lede paragraph"
 
   @javascript
   Scenario: Successfully delete an article

@@ -12,8 +12,17 @@ class ApplicationController < ActionController::Base
     attributes = [:first_name, :last_name]
     devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
   end
+
+  def set_locale
+    I18n.locale = I18n.available_locales.include?(params[:locale]&.to_sym) ? params[:locale] : I18n.default_locale
+  end
+  
+  def after_sign_in_path_for(resource)
+    if resource.admin?
+      cms_articles_path
+    else
+      super
+    end
+  end
 end
 
-def set_locale
-  I18n.locale = I18n.available_locales.include?(params[:locale]&.to_sym) ? params[:locale] : I18n.default_locale
-end
