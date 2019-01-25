@@ -44,3 +44,19 @@ Then("I should see {string} in navbar") do |content|
       expect(page).to have_content content
   end
 end
+
+
+Then("a call to the weather api should be made") do
+  url = "https://fcc-weather-api.glitch.me/api/current?lat=59.35&lon=18.05"
+  expect(a_request(:get, url)).to have_been_made.times(1)
+end
+
+Then("there should be no call to the weather api") do
+  url = "https://fcc-weather-api.glitch.me/api/current?lat=59.35&lon=18.05"
+  expect(a_request(:get, url)).not_to have_been_made
+end
+
+Then("a cookie with weather info should be stored") do
+  cookie = page.driver.browser.manage.cookie_named('weather')
+  expect(cookie[:value]).not_to eq nil
+end

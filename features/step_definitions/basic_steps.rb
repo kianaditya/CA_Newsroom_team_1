@@ -1,43 +1,45 @@
-When("I visit the site") do
-    visit root_path
+# frozen_string_literal: true
+
+When('I (re)visit the site') do
+  visit root_path
 end
 
-Given("visit Sign up page") do
+Given('visit Sign up page') do
   visit new_user_registration_path
 end
 
-Given("I am logged in as {string}") do |email|
+Given('I am logged in as {string}') do |email|
   @user = User.find_by email: email
   login_as @user, scope: :user
   visit root_path
 end
 
-Given("I a log in as {string}") do |email|
+Given('I a log in as {string}') do |email|
   click_on 'Log in'
   fill_in 'Email', with: email
   fill_in 'Password', with: 'password'
   click_on 'Submit'
 end
 
-When("I fill in {string} with {string}") do |element, value|
+When('I fill in {string} with {string}') do |element, value|
   fill_in element, with: value
 end
 
-When("I click {string}") do |element|
+When('I click {string}') do |element|
   click_on element
 end
 
-When("I click to accept the alert message") do
+When('I click to accept the alert message') do
   alert = page.driver.browser.switch_to.alert
   alert.accept
   sleep 2
 end
 
-When("I select {string} from {string}") do |option, selection|
+When('I select {string} from {string}') do |option, selection|
   select option, from: `product.#{selection}`
 end
 
-Then ("show me the page") do
+Then ('show me the page') do
   save_and_open_page
 end
 
@@ -54,34 +56,40 @@ Given('I fill in the payment form') do
   end
 end
 
-Then("I wait 2 seconds") do
+Then('I wait 2 seconds') do
   sleep 2
 end
 
-When("I attach a file") do
+When('I attach a file') do
   attach_file('article_image', "#{::Rails.root}/spec/fixtures/basic_image.png")
 end
 
-When("I click {string} for {string}") do |button, article|
+When('I click {string} for {string}') do |button, article|
   article = Article.find_by(title: article)
-  dom_section = "#article_#{article.id}" 
-  within(dom_section) do 
-      click_on button
+  dom_section = "#article_#{article.id}"
+  within(dom_section) do
+    click_on button
   end
 end
 
-Then("stop") do
+Given('the time is {string}') do |time|
+  Timecop.freeze(Time.parse(time))
+end
+
+Then('stop') do
   binding.pry
 end
 
-Then("I click the icon for {string}") do |language|
+Then('I click the icon for {string}') do |language|
   case language
-  when "Swedish"
-    alt_tag = "sv"
-  when "English"
-    alt_tag = "en"
+  when 'Swedish'
+    alt_tag = 'sv'
+  when 'English'
+    alt_tag = 'en'
   end
-  icon = find("img[ alt = '#{alt_tag}']")
+
+  icon = find("img[alt='#{alt_tag}']")
   icon.click
-  sleep 1
+
+  sleep 3
 end

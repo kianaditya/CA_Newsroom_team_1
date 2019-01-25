@@ -5,6 +5,13 @@
     .text-sm.lg:flex-grow
       = link_to_unless_current image_tag("us.png", class: "h-8 w-12", alt: "en"), locale: "en"
       = link_to_unless_current image_tag("se.png", class: "h-8 w-12", alt: "sv"), locale: "se" 
+    %div
+      %p.text-white="Weather for: #{@current_weather[:city]}"
+      %p.text-white="Current Temperature: #{@current_weather[:temp]}"
+      %p.text-white="Min Temperature: #{@current_weather[:min_temp]}"
+      %p.text-white="Max Temperature: #{@current_weather[:max_temp]}"
+      - unless @current_weather[:icon].empty?
+        %img(src="#{@current_weather[:icon]}" alt="noimage")/ 
     - if user_signed_in?
       %p.block.mt-4.lg:inline-block.lg:mt-0.text-white.mr-4.text-lg= "Hello, #{current_user.first_name}!"
       - if current_user.admin?
@@ -24,4 +31,3 @@
         = link_to "Sign up", new_user_registration_path, class: "text-white no-underline ml-8 text-lg"
       %p.block.mt-4.lg:inline-block.lg:mt-0.text-white.mr-4
         = link_to "Log in", new_user_session_path, class: "text-white no-underline ml-8 text-lg"
-

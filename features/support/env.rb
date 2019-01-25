@@ -3,6 +3,8 @@
 require 'coveralls'
 Coveralls.wear_merged!('rails')
 require 'cucumber/rails'
+require 'webmock/cucumber'
+require_relative 'weather_api_mock'
 
 ActionController::Base.allow_rescue = false
 
@@ -13,13 +15,15 @@ rescue NameError
 end
 
 World(FactoryBot::Syntax::Methods)
-FactoryBot::SyntaxRunner.class_eval do
-  include ActionDispatch::TestProcess
-end
+World(ShowMeTheCookies)
 
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+WebMock.allow_net_connect!
 Chromedriver.set_version '2.42'
+WebMock.disable_net_connect!(allow_localhost: true)
+
+
 
 chrome_options = %w[no-sandbox disable-popup-blocking disable-infobars]
 
@@ -39,6 +43,10 @@ end
 
 Capybara.javascript_driver = :selenium
 
+Before do
+  mock_weather_api
+end
+
 Before '@stripe' do
   chrome_options << 'headless'
   StripeMock.start
@@ -46,8 +54,4 @@ end
 
 After '@stripe' do
   StripeMock.stop
-end
-
-After '@javascript' do 
-  # FileUtils.rm_rf("#{Rails.root}/tmp/storage")
 end

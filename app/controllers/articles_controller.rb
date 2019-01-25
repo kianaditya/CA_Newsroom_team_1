@@ -1,5 +1,5 @@
 require 'news-api' 
-
+require 'open-uri'
 class ArticlesController < ApplicationController
 
   def index

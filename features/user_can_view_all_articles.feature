@@ -11,12 +11,21 @@ Feature: List articles on the index page
       | Politics |
       | Health   |
       | Economy  |
+
     And the following user exists
       | first_name | last_name | email         | password | role       |
       | Hanna      | Nyman     | hanna@tuna.se | password | journalist |
+      
     And the following articles exists
       | title                | lede                   | created_at | category_id | user_id | published |
       | A breaking news item | hello this is about me | 2012-12-12 | Sports      | Hanna   | true      |
+
+  Scenario: User can see category bar
+    When I visit the site
+    Then I should see 'Sports' in navbar
+    Then I should see 'Politics' in navbar
+    Then I should see 'Health' in navbar
+    Then I should see 'Economy' in navbar
 
   @javascript
   Scenario: View list of articles on the index page
@@ -29,9 +38,3 @@ Feature: List articles on the index page
     And I click the icon for "Swedish"
     Then I should see "Författare"
 
-  Scenario: User can see category bar
-    When I visit the site
-    Then I should see 'Sports' in navbar
-    Then I should see 'Politics' in navbar
-    Then I should see 'Health' in navbar
-    Then I should see 'Economy' in navbar

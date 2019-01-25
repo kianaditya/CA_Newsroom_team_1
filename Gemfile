@@ -21,6 +21,8 @@ gem 'rails-i18n'
 gem 'stripe-rails'
 gem 'aws-sdk-s3'
 gem 'news-api'
+gem 'geocoder'
+gem 'rest-client'
 gem 'active_model_serializers'
 gem 'rack-cors', require: 'rack/cors'
 gem 'devise_token_auth'
@@ -39,6 +41,9 @@ group :development, :test do
   gem 'chromedriver-helper'
   gem 'selenium-webdriver'
   gem 'stripe-ruby-mock', '~> 2.5.4', require: 'stripe_mock'
+  gem 'webmock'
+  gem 'timecop'
+  gem "show_me_the_cookies"
 end
 
 group :development do
