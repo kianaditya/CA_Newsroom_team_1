@@ -56,7 +56,6 @@ Then("there should be no call to the weather api") do
   expect(a_request(:get, url)).not_to have_been_made
 end
 
-
 Then("a cookie with weather info should be stored") do
   cookie = page.driver.browser.manage.cookie_named('weather')
   expect(cookie[:value]).not_to eq nil

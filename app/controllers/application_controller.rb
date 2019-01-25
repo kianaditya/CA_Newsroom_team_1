@@ -28,8 +28,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
-
   def get_weather
     if cookies[:weather].present?
       @current_weather = JSON.parse(cookies[:weather]).symbolize_keys

@@ -15,6 +15,7 @@ rescue NameError
 end
 
 World(FactoryBot::Syntax::Methods)
+World(ShowMeTheCookies)
 
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
@@ -40,8 +41,6 @@ Capybara.register_driver :selenium do |app|
   )
 end
 
-
-
 Capybara.javascript_driver = :selenium
 
 Before do
@@ -55,8 +54,4 @@ end
 
 After '@stripe' do
   StripeMock.stop
-end
-
-After '@javascript' do 
-  # FileUtils.rm_rf("#{Rails.root}/tmp/storage")
 end
