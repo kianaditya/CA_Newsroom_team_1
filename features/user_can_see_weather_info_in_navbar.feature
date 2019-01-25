@@ -17,7 +17,7 @@ Feature: Weather info is displayed in navbar
         Given the time is "12:00"
         And I visit the site
         Then a call to the weather api should be made
-        And a cookie with weather info should be stored
+        # And a cookie with weather info should be stored
         # When the time is "12:10"
         # And I click 'Sign up'
         # Then stop
