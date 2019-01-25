@@ -83,4 +83,5 @@ Then("I click the icon for {string}") do |language|
   end
   icon = find("img[ alt = '#{alt_tag}']")
   icon.click
+  sleep 1
 end

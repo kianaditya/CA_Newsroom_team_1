@@ -1,4 +1,3 @@
-@javascript
 Feature: List articles on the index page
 
   As a visitor
@@ -11,14 +10,15 @@ Feature: List articles on the index page
       | Sports   |
       | Politics |
       | Health   |
-      | Economy  |      
+      | Economy  |
     And the following user exists
       | first_name | last_name | email         | password | role       |
       | Hanna      | Nyman     | hanna@tuna.se | password | journalist |
     And the following articles exists
-      | title                | lede                   | created_at | category_id | user_id |published|
-      | A breaking news item | hello this is about me | 2012-12-12 | Sports      | Hanna   |true     |
+      | title                | lede                   | created_at | category_id | user_id | published |
+      | A breaking news item | hello this is about me | 2012-12-12 | Sports      | Hanna   | true      |
 
+  @javascript
   Scenario: View list of articles on the index page
     When I visit the site
     Then I should see "A breaking news item"
