@@ -2,14 +2,9 @@ class ArticlesController < ApplicationController
 
   def index
     if params[:category].present?
-      article = Article.where(category_id: params[:category])
-      @index_article = article.first
-      @secondary_articles = article.all[1..2]
-      @articles = article.all[3..99]
+      @articles = Article.where(category_id: params[:category]).order(:id)
     else
-      @index_article = Article.first
-      @secondary_articles = Article.all[1..2]
-      @articles = Article.all[3..99]
+      @articles = Article.all.order(:id)
     end
   end
 
