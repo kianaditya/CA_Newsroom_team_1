@@ -7,12 +7,11 @@ FactoryBot.define do
     published { false }
     association :user, factory: :user
     association :category, factory: :category
-    image { fixture_file_upload(Rails.root.join('spec', 'fixtures', 'basic_image.png'), 'image/png') }
 
-    # after(:create) do |article|
-    #   article.image.attach(io: File.open(Rails.root.join('spec', 'fixtures', 'basic_image.png')),
-    #                        filename: 'attachment.png',
-    #                        content_type: 'image/png')
-    # end
+    after(:create) do |article|
+      article.image.attach(io: File.open(Rails.root.join('spec', 'fixtures', 'basic_image.png')),
+                           filename: 'attachment.png',
+                           content_type: 'image/png')
+    end
   end
 end
