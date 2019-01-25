@@ -1,7 +1,11 @@
 class ArticlesController < ApplicationController
 
   def index
-    @articles = Article.all
+    if params[:category].present?
+      @articles = Article.where(category_id: params[:category]).order(:id)
+    else
+      @articles = Article.all.order(:id)
+    end
   end
 
   def show
