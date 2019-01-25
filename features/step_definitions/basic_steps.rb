@@ -30,6 +30,7 @@ end
 When("I click to accept the alert message") do
   alert = page.driver.browser.switch_to.alert
   alert.accept
+  sleep 2
 end
 
 When("I select {string} from {string}") do |option, selection|
@@ -71,4 +72,15 @@ end
 
 Then("stop") do
   binding.pry
+end
+
+Then("I click the icon for {string}") do |language|
+  case language
+  when "Swedish"
+    alt_tag = "sv"
+  when "English"
+    alt_tag = "en"
+  end
+  icon = find("img[ alt = '#{alt_tag}']")
+  icon.click
 end

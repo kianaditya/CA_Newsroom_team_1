@@ -22,7 +22,7 @@ chrome_options << 'auto-open-devtools-for-tabs'
 
 Capybara.register_driver :selenium do |app|
   options = Selenium::WebDriver::Chrome::Options.new(
-    args: %w( disable-popup-blocking disable-infobars)
+    args: %w(headless disable-popup-blocking disable-infobars)
   )
 
   Capybara::Selenium::Driver.new(

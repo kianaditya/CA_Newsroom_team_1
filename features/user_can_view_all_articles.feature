@@ -1,3 +1,4 @@
+@javascript
 Feature: List articles on the index page
 
   As a visitor
@@ -25,7 +26,7 @@ Feature: List articles on the index page
     And I should see "hello this is about me"
     And I should see "Sports"
     And I should see "Author"
-    And I click "Svenska"
+    And I click the icon for "Swedish"
     Then I should see "Författare"
 
   Scenario: User can see category bar
