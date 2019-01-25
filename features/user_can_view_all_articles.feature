@@ -24,7 +24,7 @@ Feature: List articles on the index page
     Then I should see "A breaking news item"
     And I should see "Hanna"
     And I should see "hello this is about me"
-    And I should see "Sports"
+    And I should see "Sports" for the article "A breaking news item"
     And I should see "Author"
     And I click the icon for "Swedish"
     Then I should see "Författare"

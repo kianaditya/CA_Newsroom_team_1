@@ -1,6 +1,6 @@
 -if @articles.any?
   .mainpage
-    .indexarticle.flex.flex-col.m-4
+    .indexarticle.flex.flex-col.m-4{id: dom_id(@articles.first)}
       -if @articles.first.image.attached?
         %p.pb-4= link_to image_tag(@articles.first.image), @articles.first, {class: "w-full"}
       %h3.text-4xl.pb-4= link_to "#{@articles.first.title}", @articles.first , {class: 'titel'}
@@ -14,7 +14,7 @@
       
     .secondaryarticles.flex.flex-col.m-4
       - @articles[1..2].each do |article|
-        .flex-col
+        .flex-col{id: dom_id(article)}
           -if article.image.attached?
             %p= link_to image_tag(article.image), article, {class: "w-full"}  
           %h3.text-2xl.pb-4= link_to "#{article.title}", article , {class: 'titel'}
@@ -28,7 +28,7 @@
       
     .otherarticles.flex.flex-wrap
       - @articles.offset(3).each do |article|
-        .flex-col.text-sm.text-center.w-64.m-4
+        .flex-col.text-sm.text-center.w-64.m-4{id: dom_id(article)}
           -if article.image.attached?
             %p= link_to image_tag(article.image), article, {class: "w-64"}  
           %h3.text-lg= link_to "#{article.title}", article , {class: 'titel'}
